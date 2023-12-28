@@ -1,13 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeTodo, toggleComplete } from "../features/todo/todoSlice";
+import {
+  removeTodo,
+  toggleComplete,
+  editTodo,
+} from "../features/todo/todoSlice";
 
 function Todos() {
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
+  const handleEdit = (id) => {
+    const newText = prompt("Edit todo:");
+    if (newText !== null) {
+      dispatch(editTodo({ id, text: newText }));
+    }
+  };
+
   return (
     <>
-      <div className=" text-lg">Todos</div>
+      <div className="text-2xl font-bold mt-4 mb-4">
+        {todos.length != 0 ? "My Todos" : "Please add some Todos"}
+      </div>
       <ul className="list-none">
         {todos.map((todo) => (
           <li
@@ -28,10 +41,15 @@ function Todos() {
               />
               {todo.text}
             </div>
-
+            <button
+              className="ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => handleEdit(todo.id)}
+            >
+              Edit
+            </button>
             <button
               onClick={() => dispatch(removeTodo(todo.id))}
-              className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
+              className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md ml-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

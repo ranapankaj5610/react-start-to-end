@@ -7,7 +7,7 @@ import { store } from "./app/store";
 function App() {
   return (
     <Provider store={store}>
-      <h1>Todo App</h1>
+      <h1 className="text-4xl font-bold mb-2">Todo App</h1>
       <AddTodo />
       <Todos />
     </Provider>
